@@ -13,9 +13,9 @@ development:
   encoding: utf8
   database: api_scrum_rb_development
   pool: 5
-  username: root
-  password:
-  host: localhost
+  username: api_scrum
+  password: api_scrum
+  host: 192.168.3.10
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,15 +25,6 @@ test:
   encoding: utf8
   database: api_scrum_rb_test
   pool: 5
-  username: root
-  password:
-  host: localhost
-
-production:
-  adapter: mysql2
-  encoding: utf8
-  database: api_scrum_rb_production
-  pool: 5
-  username: root
-  password:
-  host: localhost
+  username: api_scrum
+  password: api_scrum
+  host: db.pkoin.lxc
