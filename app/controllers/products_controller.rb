@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
     if @product.save
       render action: 'show', status: :created, location: @product
     else
-      render json: @product.errors, status: :unprocessable_entity
+      render json: { errors: @product.errors }, status: :unprocessable_entity
     end
   end
 
