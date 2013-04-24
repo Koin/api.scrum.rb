@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130424193314) do
+ActiveRecord::Schema.define(version: 20130424194451) do
 
   create_table "products", force: true do |t|
     t.string   "label"
@@ -19,5 +19,18 @@ ActiveRecord::Schema.define(version: 20130424193314) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "stories", force: true do |t|
+    t.string   "label"
+    t.text     "description"
+    t.float    "point"
+    t.float    "functional_point"
+    t.integer  "state"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stories", ["product_id"], name: "index_stories_on_product_id"
 
 end
