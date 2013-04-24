@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130424195026) do
+ActiveRecord::Schema.define(version: 20130424195229) do
 
   create_table "products", force: true do |t|
     t.string   "label"
@@ -53,5 +53,17 @@ ActiveRecord::Schema.define(version: 20130424195026) do
   end
 
   add_index "stories", ["product_id"], name: "index_stories_on_product_id"
+
+  create_table "tasks", force: true do |t|
+    t.string   "label"
+    t.text     "description"
+    t.float    "point"
+    t.integer  "state"
+    t.integer  "sprint_backlog_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["sprint_backlog_id"], name: "index_tasks_on_sprint_backlog_id"
 
 end
