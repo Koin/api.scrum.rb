@@ -2,6 +2,13 @@ class ProductsController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
+  respond_to :json
+
+  before_filter do
+    request.format = :json
+    response.headers["API"] = "v1"
+  end
+
   # GET /products
   # GET /products.json
   def index
@@ -26,29 +33,20 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
-
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @product }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.save
+      render action: 'show', status: :created, location: @product
+    else
+      render json: @product.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.update(product_params)
+      head :no_content
+    else
+      render json: @product.errors, status: :unprocessable_entity
     end
   end
 
@@ -56,10 +54,7 @@ class ProductsController < ApplicationController
   # DELETE /products/1.json
   def destroy
     @product.destroy
-    respond_to do |format|
-      format.html { redirect_to products_url }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private
