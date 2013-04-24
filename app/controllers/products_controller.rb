@@ -1,13 +1,5 @@
 class ProductsController < ApplicationController
-  skip_before_filter :verify_authenticity_token
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-
-  respond_to :json
-
-  before_filter do
-    request.format = :json
-    response.headers["API"] = "v1"
-  end
 
   # GET /products
   # GET /products.json
