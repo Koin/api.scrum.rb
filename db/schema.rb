@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130424194905) do
+ActiveRecord::Schema.define(version: 20130424195026) do
 
   create_table "products", force: true do |t|
     t.string   "label"
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 20130424194905) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "sprint_backlogs", force: true do |t|
+    t.integer  "sprint_id"
+    t.integer  "story_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sprint_backlogs", ["sprint_id"], name: "index_sprint_backlogs_on_sprint_id"
+  add_index "sprint_backlogs", ["story_id"], name: "index_sprint_backlogs_on_story_id"
 
   create_table "sprints", force: true do |t|
     t.datetime "start_date"
