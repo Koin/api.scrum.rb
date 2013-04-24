@@ -12,42 +12,24 @@ class StoriesController < ApplicationController
   def show
   end
 
-  # GET /stories/new
-  def new
-    @story = Story.new
-  end
-
-  # GET /stories/1/edit
-  def edit
-  end
-
   # POST /stories
   # POST /stories.json
   def create
     @story = Story.new(story_params)
-
-    respond_to do |format|
-      if @story.save
-        format.html { redirect_to @story, notice: 'Story was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @story }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @story.errors, status: :unprocessable_entity }
-      end
+    if @story.save
+      render action: 'show', status: :created, location: @story
+    else
+      render json: { errors: @story.errors }, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /stories/1
   # PATCH/PUT /stories/1.json
   def update
-    respond_to do |format|
-      if @story.update(story_params)
-        format.html { redirect_to @story, notice: 'Story was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @story.errors, status: :unprocessable_entity }
-      end
+    if @story.update(story_params)
+      head :no_content
+    else
+      render json: @story.errors, status: :unprocessable_entity
     end
   end
 
@@ -55,10 +37,7 @@ class StoriesController < ApplicationController
   # DELETE /stories/1.json
   def destroy
     @story.destroy
-    respond_to do |format|
-      format.html { redirect_to stories_url }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private
