@@ -1,0 +1,25 @@
+<h1>Listing sprint_backlogs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sprint_backlogs.each do |sprint_backlog| %>
+    <tr>
+      <td><%= link_to 'Show', sprint_backlog %></td>
+      <td><%= link_to 'Edit', edit_sprint_backlog_path(sprint_backlog) %></td>
+      <td><%= link_to 'Destroy', sprint_backlog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Sprint backlog', new_sprint_backlog_path %>
