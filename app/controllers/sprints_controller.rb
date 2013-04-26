@@ -25,29 +25,20 @@ class SprintsController < ApplicationController
   # POST /sprints.json
   def create
     @sprint = Sprint.new(sprint_params)
-
-    respond_to do |format|
-      if @sprint.save
-        format.html { redirect_to @sprint, notice: 'Sprint was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @sprint }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @sprint.errors, status: :unprocessable_entity }
-      end
+    if @sprint.save
+      render action: 'show', status: :created, location: @sprint
+    else
+      render json: @sprint.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /sprints/1
   # PATCH/PUT /sprints/1.json
   def update
-    respond_to do |format|
-      if @sprint.update(sprint_params)
-        format.html { redirect_to @sprint, notice: 'Sprint was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @sprint.errors, status: :unprocessable_entity }
-      end
+    if @sprint.update(sprint_params)
+      head :no_content
+    else
+      render json: @sprint.errors, status: :unprocessable_entity
     end
   end
 
@@ -55,10 +46,7 @@ class SprintsController < ApplicationController
   # DELETE /sprints/1.json
   def destroy
     @sprint.destroy
-    respond_to do |format|
-      format.html { redirect_to sprints_url }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private
