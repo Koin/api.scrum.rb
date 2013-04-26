@@ -46,5 +46,7 @@ ApiScrumRb::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  resources :products, :stories
+  resources :products do
+    resources :stories
+  end
 end
