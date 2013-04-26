@@ -1,10 +1,11 @@
 class SprintsController < ApplicationController
+  before_action :set_product
   before_action :set_sprint, only: [:show, :edit, :update, :destroy]
 
   # GET /sprints
   # GET /sprints.json
   def index
-    @sprints = Sprint.all
+    @sprints = @product.sprints
   end
 
   # GET /sprints/1
@@ -14,7 +15,7 @@ class SprintsController < ApplicationController
 
   # GET /sprints/new
   def new
-    @sprint = Sprint.new
+    @sprint = @product.sprints.new
   end
 
   # GET /sprints/1/edit
@@ -24,9 +25,9 @@ class SprintsController < ApplicationController
   # POST /sprints
   # POST /sprints.json
   def create
-    @sprint = Sprint.new(sprint_params)
+    @sprint = @product.sprints.new(sprint_params)
     if @sprint.save
-      render action: 'show', status: :created, location: @sprint
+      render action: 'show', status: :created, location: [@product, @sprint]
     else
       render json: @sprint.errors, status: :unprocessable_entity
     end
@@ -52,11 +53,15 @@ class SprintsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sprint
-      @sprint = Sprint.find(params[:id])
+      @sprint = @product.sprints.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sprint_params
       params.require(:sprint).permit(:start_date, :end_date, :state)
+    end
+
+    def set_product
+      @product = Product.find(params[:product_id])
     end
 end

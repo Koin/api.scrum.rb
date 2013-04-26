@@ -47,6 +47,6 @@ ApiScrumRb::Application.routes.draw do
   #     resources :products
   #   end
   resources :products do
-    resources :stories
+    resources :stories, :sprints
   end
 end
