@@ -1,7 +1,11 @@
 FactoryGirl.define do
   factory :sprint do
-    start_date Time.now
-    end_date 15.days.since
-    association :product, factory: :product
+    sequence :start_date do |n|
+      (15 * n).days.since
+    end
+    sequence :end_date do |n|
+      (30 * (0.5 + 0.5 * n)).days.since
+    end
+    product
   end
 end

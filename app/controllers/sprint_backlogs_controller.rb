@@ -70,6 +70,6 @@ class SprintBacklogsController < ApplicationController
     end
 
     def set_story
-      @story = @product.stories.find(params[:story_id])
+      @story = @product.stories.find(params[:id])
     end
 end

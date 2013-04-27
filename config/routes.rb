@@ -49,12 +49,9 @@ ApiScrumRb::Application.routes.draw do
   resources :products do
     resources :stories
     resources :sprints do
-      get "stories" => "sprint_backlogs#index"
-      get "stories/:story_id" => "sprint_backlogs#show", as: :story
-      post "stories/:story_id" => "sprint_backlogs#create"
-      put "stories/:story_id" => "sprint_backlogs#update"
-      patch "stories/:story_id" => "sprint_backlogs#update"
-      delete "stories/:story_id" => "sprint_backlogs#destroy"
+      resources :sprint_backlogs, :path => "stories", :as => "stories" do
+        resources :tasks
+      end
     end
   end
 end

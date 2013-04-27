@@ -21,7 +21,8 @@ describe SprintsController do
 
   describe "PATCH #update" do
     it "responds successfully with an HTTP 204 status code" do
-      sprint = FactoryGirl.create :sprint
+      product = FactoryGirl.create :product_with_sprints
+      sprint = product.sprints.first
       patch :update, :product_id => sprint.product_id, :id => sprint.id, :sprint => { :start_date => Time.now, :end_date => 15.days.since }
       response.should be_success
       response.code.should eq "204"
@@ -36,7 +37,8 @@ describe SprintsController do
 
   describe "DELETE #destroy" do
     it "responds successfully with an HTTP 204 status code" do
-      sprint = FactoryGirl.create :sprint
+      product = FactoryGirl.create :product_with_sprints
+      sprint = product.sprints.first
       delete :destroy, :product_id => sprint.product_id, :id => sprint.id
       response.should be_success
       response.code.should eq "204"

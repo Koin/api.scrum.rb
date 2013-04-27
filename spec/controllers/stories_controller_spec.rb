@@ -21,7 +21,8 @@ describe StoriesController do
 
   describe "PATCH #update" do
     it "responds successfully with an HTTP 204 status code" do
-      story = FactoryGirl.create :story
+      product = FactoryGirl.create :product_with_stories
+      story = product.stories.first
       patch :update, :product_id => story.product_id, :id => story.id, :story => { :label => "My awesome story" }
       response.should be_success
       response.code.should eq "204"
@@ -36,7 +37,8 @@ describe StoriesController do
 
   describe "DELETE #destroy" do
     it "responds successfully with an HTTP 204 status code" do
-      story = FactoryGirl.create :story
+      product = FactoryGirl.create :product_with_stories
+      story = product.stories.first
       delete :destroy, :product_id => story.product_id, :id => story.id
       response.should be_success
       response.code.should eq "204"
