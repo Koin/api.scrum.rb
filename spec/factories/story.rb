@@ -1,6 +1,8 @@
 FactoryGirl.define do
   factory :story do
-    label "My story"
-    association :product, factory: :product
+    sequence :label do |n|
+      "My story #{n}"
+    end
+    product
   end
 end
