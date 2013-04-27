@@ -3,4 +3,6 @@ rvm:
   - 1.9.3
   - 2.0.0
 before_script:
-  - mysql -e 'create database api_scrum_rb_test;'
+  - bundle exec rake db:create RAILS_ENV=test
+  - bundle exec rake db:migrate RAILS_ENV=test
+script: bundle exec rspec
