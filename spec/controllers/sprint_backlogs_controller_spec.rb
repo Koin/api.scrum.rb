@@ -16,7 +16,7 @@ describe SprintBacklogsController do
       product = sprint.product
       story = product.stories.new
       story.save
-      post :create, :product_id => product.id, :sprint_id => sprint.id, :story_id => story.id
+      post :create, :product_id => product.id, :sprint_id => sprint.id, :id => story.id
       response.should be_success
       response.code.should eq "201"
     end
@@ -26,7 +26,7 @@ describe SprintBacklogsController do
       story = product.stories.new
       story.save
       sprint.sprint_backlogs.new(story_id: story.id).save
-      post :create, :product_id => product.id, :sprint_id => sprint.id, :story_id => story.id
+      post :create, :product_id => product.id, :sprint_id => sprint.id, :id => story.id
       response.should_not be_success
       response.code.should eq "422"
     end
@@ -39,7 +39,7 @@ describe SprintBacklogsController do
       story = product.stories.new
       story.save
       sprint.sprint_backlogs.new(story_id: story.id).save
-      patch :update, :product_id => product.id, :sprint_id => sprint.id, :story_id => story.id
+      patch :update, :product_id => product.id, :sprint_id => sprint.id, :id => story.id
       response.should be_success
       response.code.should eq "204"
     end
@@ -48,7 +48,7 @@ describe SprintBacklogsController do
       product = sprint.product
       story = product.stories.new
       story.save
-      patch :update, :product_id => product.id, :sprint_id => sprint.id, :story_id => story.id
+      patch :update, :product_id => product.id, :sprint_id => sprint.id, :id => story.id
       response.should_not be_success
       response.code.should eq "404"
     end
@@ -61,7 +61,7 @@ describe SprintBacklogsController do
       story = product.stories.new
       story.save
       sprint.sprint_backlogs.new(story_id: story.id).save
-      delete :destroy, :product_id => product.id, :sprint_id => sprint.id, :story_id => story.id
+      delete :destroy, :product_id => product.id, :sprint_id => sprint.id, :id => story.id
       response.should be_success
       response.code.should eq "204"
     end
