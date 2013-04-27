@@ -1,0 +1,5 @@
+test:
+  adapter: mysql2
+  database: api_scrum_rb_test
+  username: root
+  encoding: utf8
