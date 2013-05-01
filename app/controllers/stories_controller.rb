@@ -1,20 +1,20 @@
 class StoriesController < ApplicationController
   before_action :set_product
-  before_action :set_story, only: [:show, :edit, :update, :destroy]
+  before_action :set_story, only: [:show, :update, :destroy]
 
-  # GET /stories
-  # GET /stories.json
+  # GET /products/1/stories
+  # GET /products/1/stories.json
   def index
     @stories = @product.stories
   end
 
-  # GET /stories/1
-  # GET /stories/1.json
+  # GET /products/1/stories/1
+  # GET /products/1/stories/1.json
   def show
   end
 
-  # POST /stories
-  # POST /stories.json
+  # POST /products/1/stories
+  # POST /products/1/stories.json
   def create
     @story = @product.stories.new(story_params)
     if @story.save
@@ -24,18 +24,18 @@ class StoriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /stories/1
-  # PATCH/PUT /stories/1.json
+  # PATCH/PUT /products/1/stories/1
+  # PATCH/PUT /products/1/stories/1.json
   def update
     if @story.update(story_params)
       head :no_content
     else
-      render json: @story.errors, status: :unprocessable_entity
+      render json: { errors: @story.errors }, status: :unprocessable_entity
     end
   end
 
-  # DELETE /stories/1
-  # DELETE /stories/1.json
+  # DELETE /products/1/stories/1
+  # DELETE /products/1/stories/1.json
   def destroy
     @story.destroy
     head :no_content
@@ -49,7 +49,7 @@ class StoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def story_params
-      params.require(:story).permit(:label, :description, :point, :functional_point, :state, :product_id)
+      params.require(:story).permit(:label, :description, :technical_point, :functional_point, :state, :product_id)
     end
 
     def set_product
