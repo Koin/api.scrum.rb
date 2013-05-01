@@ -1,50 +1,41 @@
 class SprintsController < ApplicationController
   before_action :set_product
-  before_action :set_sprint, only: [:show, :edit, :update, :destroy]
+  before_action :set_sprint, only: [:show, :update, :destroy]
 
-  # GET /sprints
-  # GET /sprints.json
+  # GET /products/1/sprints
+  # GET /products/1/sprints.json
   def index
     @sprints = @product.sprints
   end
 
-  # GET /sprints/1
-  # GET /sprints/1.json
+  # GET /products/1/sprints/1
+  # GET /products/1/sprints/1.json
   def show
   end
 
-  # GET /sprints/new
-  def new
-    @sprint = @product.sprints.new
-  end
-
-  # GET /sprints/1/edit
-  def edit
-  end
-
-  # POST /sprints
-  # POST /sprints.json
+  # POST /products/1/sprints
+  # POST /products/1/sprints.json
   def create
     @sprint = @product.sprints.new(sprint_params)
     if @sprint.save
       render action: 'show', status: :created, location: [@product, @sprint]
     else
-      render json: @sprint.errors, status: :unprocessable_entity
+      render json: { errors: @sprint.errors }, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /sprints/1
-  # PATCH/PUT /sprints/1.json
+  # PATCH/PUT /products/1/sprints/1
+  # PATCH/PUT /products/1/sprints/1.json
   def update
     if @sprint.update(sprint_params)
       head :no_content
     else
-      render json: @sprint.errors, status: :unprocessable_entity
+      render json: { errors: @sprint.errors }, status: :unprocessable_entity
     end
   end
 
-  # DELETE /sprints/1
-  # DELETE /sprints/1.json
+  # DELETE /products/1/sprints/1
+  # DELETE /products/1/sprints/1.json
   def destroy
     @sprint.destroy
     head :no_content
