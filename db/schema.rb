@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130424195229) do
+ActiveRecord::Schema.define(version: 20130501090505) do
 
   create_table "products", force: true do |t|
     t.string   "label"
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 20130424195229) do
     t.datetime "updated_at"
   end
 
-  add_index "sprint_backlogs", ["sprint_id"], name: "index_sprint_backlogs_on_sprint_id"
-  add_index "sprint_backlogs", ["story_id"], name: "index_sprint_backlogs_on_story_id"
+  add_index "sprint_backlogs", ["sprint_id"], name: "index_sprint_backlogs_on_sprint_id", using: :btree
+  add_index "sprint_backlogs", ["story_id"], name: "index_sprint_backlogs_on_story_id", using: :btree
 
   create_table "sprints", force: true do |t|
     t.datetime "start_date"
@@ -39,12 +39,12 @@ ActiveRecord::Schema.define(version: 20130424195229) do
     t.datetime "updated_at"
   end
 
-  add_index "sprints", ["product_id"], name: "index_sprints_on_product_id"
+  add_index "sprints", ["product_id"], name: "index_sprints_on_product_id", using: :btree
 
   create_table "stories", force: true do |t|
     t.string   "label"
     t.text     "description"
-    t.float    "point"
+    t.float    "technical_point"
     t.float    "functional_point"
     t.integer  "state"
     t.integer  "product_id"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20130424195229) do
     t.datetime "updated_at"
   end
 
-  add_index "stories", ["product_id"], name: "index_stories_on_product_id"
+  add_index "stories", ["product_id"], name: "index_stories_on_product_id", using: :btree
 
   create_table "tasks", force: true do |t|
     t.string   "label"
@@ -64,6 +64,6 @@ ActiveRecord::Schema.define(version: 20130424195229) do
     t.datetime "updated_at"
   end
 
-  add_index "tasks", ["sprint_backlog_id"], name: "index_tasks_on_sprint_backlog_id"
+  add_index "tasks", ["sprint_backlog_id"], name: "index_tasks_on_sprint_backlog_id", using: :btree
 
 end
