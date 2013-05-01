@@ -8,6 +8,11 @@ describe SprintsController do
       response.should be_success
       response.code.should eq "200"
     end
+    it "responds with a 404 status code if the product doesn't exist" do
+      get :index, :product_id => 7777
+      response.should_not be_success
+      response.code.should eq "404"
+    end
   end
 
   describe "POST #create" do
@@ -16,6 +21,24 @@ describe SprintsController do
       post :create, :product_id => product.id, :sprint => { :start_date => Time.now, :end_date => 15.days.since }
       response.should be_success
       response.code.should eq "201"
+    end
+    it "responds with a 422 status code if the start date is not a date" do
+      product = FactoryGirl.create :product
+      post :create, :product_id => product.id, :sprint => { :start_date => "" }
+      response.should_not be_success
+      response.code.should eq "422"
+    end
+    it "responds with a 422 status code if the end date is not a date" do
+      product = FactoryGirl.create :product
+      post :create, :product_id => product.id, :sprint => { :start_date => Time.now, :end_date => "" }
+      response.should_not be_success
+      response.code.should eq "422"
+    end
+    it "responds with a 422 status code if the end date is before the start date" do
+      product = FactoryGirl.create :product
+      post :create, :product_id => product.id, :sprint => { :start_date => Time.now, :end_date => 1.days.ago }
+      response.should_not be_success
+      response.code.should eq "422"
     end
   end
 
@@ -33,6 +56,27 @@ describe SprintsController do
       response.should_not be_success
       response.code.should eq "404"
     end
+    it "responds with a 422 status code if the start date is not a date" do
+      product = FactoryGirl.create :product_with_sprints
+      sprint = product.sprints.first
+      patch :update, :product_id => sprint.product_id, :id => sprint.id, :sprint => { :start_date => "" }
+      response.should_not be_success
+      response.code.should eq "422"
+    end
+    it "responds with a 422 status code if the end date is not a date" do
+      product = FactoryGirl.create :product_with_sprints
+      sprint = product.sprints.first
+      patch :update, :product_id => sprint.product_id, :id => sprint.id, :sprint => { :start_date => Time.now, :end_date => "" }
+      response.should_not be_success
+      response.code.should eq "422"
+    end
+    it "responds with a 422 status code if the end date is before the start date" do
+      product = FactoryGirl.create :product_with_sprints
+      sprint = product.sprints.first
+      patch :update, :product_id => sprint.product_id, :id => sprint.id, :sprint => { :start_date => Time.now, :end_date => 1.days.ago }
+      response.should_not be_success
+      response.code.should eq "422"
+    end
   end
 
   describe "DELETE #destroy" do
@@ -42,6 +86,12 @@ describe SprintsController do
       delete :destroy, :product_id => sprint.product_id, :id => sprint.id
       response.should be_success
       response.code.should eq "204"
+    end
+    it "responds with a 404 status code if the sprint doesn't exist" do
+      product = FactoryGirl.create :product
+      delete :destroy, :product_id => product.id, :id => 7777
+      response.should_not be_success
+      response.code.should eq "404"
     end
   end
 
