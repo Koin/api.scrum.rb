@@ -2,6 +2,8 @@ require "spec_helper"
 module Backlog
   describe StoriesController do
 
+    render_views
+
     before(:each) do
       @product = FactoryGirl.create :product_with_stories_and_sprints
       @sprint = @product.sprints.first
@@ -9,10 +11,18 @@ module Backlog
     end
 
     describe "GET #index" do
-      it "responds successfully with an HTTP 200 status code" do
+      it "responds successfully with an HTTP 200 status code and ordered elements" do
+        last_story = @product.stories.last
+        @sprint.sprint_backlogs.new(story_id: @story.id, order: 1).save
+        @sprint.sprint_backlogs.new(story_id: last_story.id, order: 2).save
         get :index, :product_id => @product.id, :sprint_id => @sprint.id
         response.should be_success
         response.code.should eq "200"
+        previous_order = 0
+        JSON.parse(response.body).each do |sb|
+          sb["order"].to_i.should be >= previous_order, "Stories in the backlog are not sorted correctly"
+          previous_order = sb["order"]
+        end
       end
     end
 

@@ -7,7 +7,7 @@ module Backlog
     # GET /products/1/sprints/1/backlog/stories
     # GET /products/1/sprints/1/backlog/stories.json
     def index
-      @sprint_backlogs = @sprint.sprint_backlogs.to_a
+      @sprint_backlogs = @sprint.sprint_backlogs.order(:order).to_a
     end
 
     # GET /products/1/sprints/1/backlog/stories/1
