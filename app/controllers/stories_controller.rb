@@ -1,4 +1,4 @@
-class StoriesController < ApplicationController
+class StoriesController < ApiController
   before_action :set_product
   before_action :set_story, only: [:show, :update, :destroy]
 

@@ -1,4 +1,4 @@
-class TasksController < ApplicationController
+class TasksController < ApiController
   before_action :set_product
   before_action :set_sprint
   before_action :set_story
