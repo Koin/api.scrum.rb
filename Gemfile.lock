@@ -61,7 +61,7 @@ GEM
     mime-types (1.23)
     minitest (4.7.3)
     multi_json (1.7.2)
-    mysql2 (0.3.11)
+    pg (0.15.1)
     phony (1.7.12)
     polyglot (0.3.3)
     pry (0.9.12.1)
@@ -124,7 +124,7 @@ DEPENDENCIES
   activevalidators
   factory_girl_rails
   jbuilder
-  mysql2
+  pg
   pry-rails
   rails (= 4.0.0.rc1)
   rspec-rails

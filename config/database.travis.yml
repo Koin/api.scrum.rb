@@ -1,5 +1,5 @@
 test:
-  adapter: mysql2
+  adapter: postgresql
   database: api_scrum_rb_test
-  username: root
+  username: postgres
   encoding: utf8
