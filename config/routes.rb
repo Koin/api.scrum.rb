@@ -49,8 +49,8 @@ ApiScrumRb::Application.routes.draw do
   resources :products do
     resources :stories
     resources :sprints do
-      resources :sprint_backlogs, :path => "stories", :as => "stories" do
-        resources :tasks
+      namespace :backlog do
+        resources :stories
       end
     end
   end
