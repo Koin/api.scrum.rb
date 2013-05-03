@@ -1,11 +1,9 @@
 defaults: &defaults
-  adapter:  mysql2
+  adapter:  postgresql
   pool:     5
   encoding: utf8
   database: api_scrum_rb_<%= Rails.env %>
-  username: api_scrum
-  password: api_scrum
-  host:     db.api.scrum.rb.lxc
+  host:     localhost
 
 development:
   <<: *defaults
