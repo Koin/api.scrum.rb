@@ -1,4 +1,4 @@
-class SprintsController < ApplicationController
+class SprintsController < ApiController
   before_action :set_product
   before_action :set_sprint, only: [:show, :update, :destroy]
 
