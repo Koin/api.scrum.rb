@@ -23,7 +23,7 @@ module Backlog
       if @task.save
         render action: 'show', status: :created, location: product_sprint_backlog_story_url(@product, @sprint, @sprint_backlog, @task, format: :json)
       else
-        render json: @task.errors, status: :unprocessable_entity
+        render json: { errors: @task.errors }, status: :unprocessable_entity
       end
     end
 
@@ -34,7 +34,7 @@ module Backlog
       if @task.update(task_params)
         head :no_content
       else
-        render json: @task.errors, status: :unprocessable_entity
+        render json: { errors: @task.errors }, status: :unprocessable_entity
       end
     end
 

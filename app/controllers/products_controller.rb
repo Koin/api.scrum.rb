@@ -29,7 +29,7 @@ class ProductsController < ApiController
     if @product.update(product_params)
       head :no_content
     else
-      render json: @product.errors, status: :unprocessable_entity
+      render json: { errors: @product.errors }, status: :unprocessable_entity
     end
   end
 
