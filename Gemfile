@@ -8,6 +8,8 @@ gem 'pg'
 
 gem "activevalidators"
 
+gem 'rack-cors', :require => 'rack/cors'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 
