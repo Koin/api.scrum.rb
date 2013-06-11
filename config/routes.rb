@@ -50,7 +50,6 @@ ApiScrumRb::Application.routes.draw do
   root to: "welcome#index"
 
   resources :products do
-    resources :stories
     resources :sprints do
       namespace :backlog do
         resources :stories do
@@ -59,5 +58,6 @@ ApiScrumRb::Application.routes.draw do
       end
     end
   end
+  resources :stories
 
 end
