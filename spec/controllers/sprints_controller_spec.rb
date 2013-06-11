@@ -1,15 +1,27 @@
 require 'spec_helper'
 describe SprintsController do
 
+  render_views
+
   describe "GET #index" do
     it "responds successfully with an HTTP 200 status code" do
-      product = FactoryGirl.create :product
-      get :index, :product_id => product.id
+      FactoryGirl.create :product_with_sprints
+      get :index
       response.should be_success
       response.code.should eq "200"
     end
-    it "responds with a 404 status code if the product doesn't exist" do
-      get :index, :product_id => 7777
+  end
+
+  describe "GET #show" do
+    it "responds successfully with an HTTP 200 status code" do
+      product = FactoryGirl.create :product_with_sprints
+      sprint = product.sprints.first
+      get :show, :id => sprint.id
+      response.should be_success
+      response.code.should eq "200"
+    end
+    it "responds with a 404 status code if the sprint doesn't exist" do
+      get :show, :id => -1
       response.should_not be_success
       response.code.should eq "404"
     end
@@ -18,25 +30,25 @@ describe SprintsController do
   describe "POST #create" do
     it "responds successfully with an HTTP 201 status code" do
       product = FactoryGirl.create :product
-      post :create, :product_id => product.id, :sprint => { :start_date => Time.now, :end_date => 15.days.since }
+      post :create, :sprint => { :start_date => Time.now, :end_date => 15.days.since, :product_id => product.id }
       response.should be_success
       response.code.should eq "201"
     end
     it "responds with a 422 status code if the start date is not a date" do
       product = FactoryGirl.create :product
-      post :create, :product_id => product.id, :sprint => { :start_date => "" }
+      post :create, :sprint => { :start_date => "", :product_id => product.id }
       response.should_not be_success
       response.code.should eq "422"
     end
     it "responds with a 422 status code if the end date is not a date" do
       product = FactoryGirl.create :product
-      post :create, :product_id => product.id, :sprint => { :start_date => Time.now, :end_date => "" }
+      post :create, :sprint => { :start_date => Time.now, :end_date => "", :product_id => product.id }
       response.should_not be_success
       response.code.should eq "422"
     end
     it "responds with a 422 status code if the end date is before the start date" do
       product = FactoryGirl.create :product
-      post :create, :product_id => product.id, :sprint => { :start_date => Time.now, :end_date => 1.days.ago }
+      post :create, :sprint => { :start_date => Time.now, :end_date => 1.days.ago, :product_id => product.id }
       response.should_not be_success
       response.code.should eq "422"
     end
@@ -46,34 +58,33 @@ describe SprintsController do
     it "responds successfully with an HTTP 204 status code" do
       product = FactoryGirl.create :product_with_sprints
       sprint = product.sprints.first
-      patch :update, :product_id => sprint.product_id, :id => sprint.id, :sprint => { :start_date => Time.now, :end_date => 15.days.since }
+      patch :update, :id => sprint.id, :sprint => { :start_date => Time.now, :end_date => 15.days.since }
       response.should be_success
       response.code.should eq "204"
     end
     it "responds with a 404 status code if the sprint doesn't exist" do
-      product = FactoryGirl.create :product
-      patch :update, :product_id => product.id, :id => 7777, :sprint => { :start_date => Time.now, :end_date => 15.days.since }
+      patch :update, :id => -1, :sprint => { :start_date => Time.now, :end_date => 15.days.since }
       response.should_not be_success
       response.code.should eq "404"
     end
     it "responds with a 422 status code if the start date is not a date" do
       product = FactoryGirl.create :product_with_sprints
       sprint = product.sprints.first
-      patch :update, :product_id => sprint.product_id, :id => sprint.id, :sprint => { :start_date => "" }
+      patch :update, :id => sprint.id, :sprint => { :start_date => "" }
       response.should_not be_success
       response.code.should eq "422"
     end
     it "responds with a 422 status code if the end date is not a date" do
       product = FactoryGirl.create :product_with_sprints
       sprint = product.sprints.first
-      patch :update, :product_id => sprint.product_id, :id => sprint.id, :sprint => { :start_date => Time.now, :end_date => "" }
+      patch :update, :id => sprint.id, :sprint => { :start_date => Time.now, :end_date => "" }
       response.should_not be_success
       response.code.should eq "422"
     end
     it "responds with a 422 status code if the end date is before the start date" do
       product = FactoryGirl.create :product_with_sprints
       sprint = product.sprints.first
-      patch :update, :product_id => sprint.product_id, :id => sprint.id, :sprint => { :start_date => Time.now, :end_date => 1.days.ago }
+      patch :update, :id => sprint.id, :sprint => { :start_date => Time.now, :end_date => 1.days.ago }
       response.should_not be_success
       response.code.should eq "422"
     end
@@ -83,13 +94,12 @@ describe SprintsController do
     it "responds successfully with an HTTP 204 status code" do
       product = FactoryGirl.create :product_with_sprints
       sprint = product.sprints.first
-      delete :destroy, :product_id => sprint.product_id, :id => sprint.id
+      delete :destroy, :id => sprint.id
       response.should be_success
       response.code.should eq "204"
     end
     it "responds with a 404 status code if the sprint doesn't exist" do
-      product = FactoryGirl.create :product
-      delete :destroy, :product_id => product.id, :id => 7777
+      delete :destroy, :id => -1
       response.should_not be_success
       response.code.should eq "404"
     end

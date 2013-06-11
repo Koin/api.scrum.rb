@@ -59,5 +59,6 @@ ApiScrumRb::Application.routes.draw do
     end
   end
   resources :stories
+  resources :sprints
 
 end
