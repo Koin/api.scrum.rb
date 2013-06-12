@@ -49,15 +49,11 @@ ApiScrumRb::Application.routes.draw do
 
   root to: "welcome#index"
 
-  resources :products do
-    resources :stories
-    resources :sprints do
-      namespace :backlog do
-        resources :stories do
-          resources :tasks
-        end
-      end
-    end
+  resources :products
+  resources :stories
+  resources :sprints do
+    resources :stories, controller: "sprint_backlogs"
   end
+  resources :tasks
 
 end

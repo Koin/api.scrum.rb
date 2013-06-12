@@ -1,9 +1,4 @@
 json.array!(@stories) do |story|
-  json.extract! story,
-    :label,
-    :description,
-    :technical_point,
-    :functional_point,
-    :state
-  json.url product_story_url(@product, story, format: :json)
+  json.extract! story, :id, :label, :description, :technical_point, :functional_point, :state
+  json.url story_url(story, format: :json)
 end
