@@ -6,5 +6,4 @@ class SprintBacklog < ActiveRecord::Base
   validates :order, :numericality => { :only_integer => true }, :allow_nil => true
   belongs_to :sprint
   belongs_to :story
-  has_many :tasks
 end

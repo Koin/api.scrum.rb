@@ -3,4 +3,5 @@ class Story < ActiveRecord::Base
   validates :technical_point, :numericality => true, :allow_nil => true
   validates :functional_point, :numericality => true, :allow_nil => true
   belongs_to :product
+  has_many :tasks
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130508220709) do
+ActiveRecord::Schema.define(version: 20130612202433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,12 +63,12 @@ ActiveRecord::Schema.define(version: 20130508220709) do
     t.text     "description"
     t.float    "point"
     t.integer  "state"
-    t.integer  "sprint_backlog_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "order"
+    t.integer  "story_id"
   end
 
-  add_index "tasks", ["sprint_backlog_id"], name: "index_tasks_on_sprint_backlog_id", using: :btree
+  add_index "tasks", ["story_id"], name: "index_tasks_on_story_id", using: :btree
 
 end
