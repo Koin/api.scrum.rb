@@ -52,13 +52,12 @@ ApiScrumRb::Application.routes.draw do
   resources :products do
     resources :sprints do
       namespace :backlog do
-        resources :stories do
-          resources :tasks
-        end
+        resources :stories
       end
     end
   end
   resources :stories
   resources :sprints
+  resources :tasks
 
 end
