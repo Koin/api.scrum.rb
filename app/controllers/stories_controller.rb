@@ -4,7 +4,11 @@ class StoriesController < ApiController
   # GET /stories
   # GET /stories.json
   def index
-    @stories = Story.all
+    unless params["product_id"].nil?
+      @stories = Story.where(product_id: params["product_id"]).order(:order)
+    else
+      @stories = Story.all.order(:order)
+    end
   end
 
   # GET /stories/1
@@ -48,6 +52,6 @@ class StoriesController < ApiController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def story_params
-      params.require(:story).permit(:label, :description, :technical_point, :functional_point, :state, :product_id)
+      params.require(:story).permit(:label, :description, :technical_point, :functional_point, :state, :order, :product_id)
     end
 end

@@ -4,11 +4,16 @@ describe StoriesController do
   render_views
 
   describe "GET #index" do
-    it "responds successfully with an HTTP 200 status code" do
+    it "responds successfully with an HTTP 200 status code and ordered elements" do
       FactoryGirl.create :product_with_stories
       get :index
       response.should be_success
       response.code.should eq "200"
+      previous_order = 0
+      JSON.parse(response.body).each do |s|
+        s["order"].to_i.should be >= previous_order, "Stories are not sorted correctly"
+        previous_order = s["order"]
+      end
     end
   end
 

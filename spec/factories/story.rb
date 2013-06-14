@@ -3,6 +3,7 @@ FactoryGirl.define do
     sequence :label do |n|
       "My story #{n}"
     end
+    sequence :order
     product
   end
 end
