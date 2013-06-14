@@ -59,7 +59,7 @@ GEM
     method_source (0.8.1)
     mime-types (1.23)
     minitest (4.7.4)
-    multi_json (1.7.6)
+    multi_json (1.7.7)
     pg (0.15.1)
     phony (1.7.12)
     polyglot (0.3.3)
