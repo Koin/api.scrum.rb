@@ -4,7 +4,11 @@ class TasksController < ApiController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    unless params["story_id"].nil?
+      @tasks = Task.where(story_id: params["story_id"]).order(:order)
+    else
+      @tasks = Task.all.order(:order)
+    end
   end
 
   # GET /tasks/1
