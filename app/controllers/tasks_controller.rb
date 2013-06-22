@@ -4,7 +4,11 @@ class TasksController < ApiController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    unless params["story_id"].nil?
+      @tasks = Task.where(story_id: params["story_id"]).order(:order)
+    else
+      @tasks = Task.all.order(:order)
+    end
   end
 
   # GET /tasks/1
@@ -48,6 +52,6 @@ class TasksController < ApiController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:label, :description, :point, :state, :story_id)
+      params.require(:task).permit(:label, :description, :point, :state, :story_id, :order)
     end
 end
