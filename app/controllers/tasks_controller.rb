@@ -52,6 +52,6 @@ class TasksController < ApiController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:label, :description, :point, :state, :story_id)
+      params.require(:task).permit(:label, :description, :point, :state, :story_id, :order)
     end
 end
